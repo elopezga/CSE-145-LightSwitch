@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,8 +30,33 @@ public class ControlActivity extends AppCompatActivity {
             }
         });
 
-
+        final Button toggleButton = (Button) findViewById(R.id.button_update);
         final TextView lightstatustext = (TextView) findViewById(R.id.textView_light);
+
+        toggleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ThingSpeakComm tpcom = new ThingSpeakComm();
+                        String response;
+                        //Log.d("LightSwitch", "Status: " + light1Status);
+                        //Log.d("LightSwitch", Boolean.toString(light1Status.equals("0")));
+                        if( light1Status.equals("0") ){
+                            do {
+                                response = tpcom.setLightStatus("1", "1").replace("\n", "");
+                            } while( response.equals("0"));
+                        }else {
+                            do {
+                                response = tpcom.setLightStatus("1", "0").replace("\n", "");
+                            } while( response.equals("0"));
+                        }
+                        //Log.d("LightSwitch", Boolean.toString(response.equals("0")));
+                    }
+                }).start();
+            }
+        });
 
 
         /* Set up view updater */
@@ -40,7 +66,7 @@ public class ControlActivity extends AppCompatActivity {
                 try{
                     while(!isInterrupted()){
                         ThingSpeakComm tpcom = new ThingSpeakComm();
-                        light1Status = tpcom.getLightStatus("1");
+                        light1Status = tpcom.getLightStatus("1").replace("\n", "");
 
                         Thread.sleep(1000);
                         runOnUiThread(new Runnable() {
