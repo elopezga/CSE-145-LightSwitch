@@ -32,6 +32,7 @@ public class ControlActivity extends AppCompatActivity {
 
         final Button toggleButton = (Button) findViewById(R.id.button_update);
         final TextView lightstatustext = (TextView) findViewById(R.id.textView_light);
+        findViewById(R.id.progressBar).setVisibility(View.GONE);
 
         toggleButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,12 +47,35 @@ public class ControlActivity extends AppCompatActivity {
                         if( light1Status.equals("0") ){
                             do {
                                 response = tpcom.setLightStatus("1", "1").replace("\n", "");
+
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
+                                    }
+                                });
+
                             } while( response.equals("0"));
                         }else {
                             do {
                                 response = tpcom.setLightStatus("1", "0").replace("\n", "");
+
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
+                                    }
+                                });
+
                             } while( response.equals("0"));
                         }
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                findViewById(R.id.progressBar).setVisibility(View.GONE);
+                            }
+                        });
                         //Log.d("LightSwitch", Boolean.toString(response.equals("0")));
                     }
                 }).start();
