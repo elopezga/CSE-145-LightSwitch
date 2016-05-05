@@ -11,7 +11,7 @@
 // give it a name:
 int led = 13;
 
-SoftwareSerial toESP2866(11, 10); // Specify RX and TX pins on Arduino (TX, RX) as serial
+SoftwareSerial ESP2866(10, 11); // Specify RX and TX pins on Arduino (TX, RX) as serial
 
 // the setup routine runs once when you press reset:
 void setup() {                
@@ -19,18 +19,26 @@ void setup() {
   pinMode(led, OUTPUT);
  
   Serial.begin(9600);  
-  toESP2866.begin(9600);
+  ESP2866.begin(9600);
   
-  Serial.println("Reseting ESP2866");
-  delay(2000);
-  toESP2866.println("AT+RST");
-  delay(200);
+  //Serial.println("Reseting ESP2866");
+  //delay(2000);
+  //ESP2866.println("AT+RST");
   Serial.println("Connecting to network");
   connectWifi("cozy", "juanisdumb");
 }
 
 // the loop routine runs over and over again forever:
 void loop() {
+
+  if( Serial.available() ){
+    ESP2866.write( Serial.read() );
+  }
+
+  if( ESP2866.available() ){
+    Serial.write( ESP2866.read() );
+  }
+  
   /*
   digitalWrite(led, HIGH);   // turn the LED on (HIGH is the voltage level)
   Serial.println("LED ON");
@@ -43,6 +51,7 @@ void loop() {
   delay(2000);
   monitor.println("AT+RST");
   */
+  /*
   toESP2866.listen();
   toESP2866.println("AT+CWMODE?");
   delay(500);
@@ -52,33 +61,64 @@ void loop() {
     Serial.print("Response: ");
     Serial.write(toESP2866.read());
   }
-  Serial.println("Done");
+  Serial.println("Done");*/
 }
+
 
 void connectWifi(String Ssd, String Pass){
   Serial.println("Setting WiFi mode to BOTH (3)");
-  String cmd = "AT+CWMODE:3";
-  toESP2866.println(cmd);
-  delay(1000);
-  Serial.println("Done");
+  sendCommand("AT+CWMODE=3");
+
+  Serial.println("Software reset");
+  sendCommand("AT+RST");
   
   Serial.println("Setting TCP/UDP connection mode to Multiple (1)");
-  toESP2866.println("AT+CIPMUX=1");
-  delay(1000);
-  Serial.println("Done");
+  sendCommand("AT+CIPMUX=1");
 
   // Connect to wifi network
-  cmd = "AT+CWJAP=\""+Ssd+"\",\""+Pass+"\"";
-  Serial.println("Sending command: " + cmd);
-  toESP2866.println(cmd);
-  Serial.println("Done");
-  delay(1000);
-  //toESP2866.println("AT+CIFSR");
-  //delay(10000);
-  //Serial.println(readLine(toESP2866));
-  //Serial.println("Ready to start working!");  
+  Serial.println("Connecting to " + Ssd);
+  sendCommand("AT+CWJAP=\""+Ssd+"\",\""+Pass+"\"");
+
+  Serial.println("Getting connection status");
+  sendCommand("AT+CIFSR");
+
+  Serial.println("Ready to work!");
 }
 
+void connectToHost(String host){
+  Serial.println("Connecting to " + host);
+
+  
+  String response = sendCommand("AT+CIPSTART=4,\"TCP\",\""+host+"\",80");
+
+  //@TODO
+  /*
+  while( response ){
+    response = sendCommand("AT+CIPSTART=4,\"TCP\",\""+host+"\",80");
+  }*/
+  
+  
+}
+
+void sendCommand(String cmd){
+  ESP2866.println(cmd);
+  delay(5000);
+  readReceive();
+  Serial.println("Done");
+}
+
+String readReceive(){
+  String response = "";
+  while( ESP2866.available() ){
+    response = response + ESP2866.read();
+    //Serial.write( ESP2866.read() );
+  }
+  Serial.write( response );
+  return response;
+}
+
+
+/*
 String readLine(SoftwareSerial mon){
   char c;
   String msg;
@@ -92,10 +132,10 @@ String readLine(SoftwareSerial mon){
     Serial.println(cstr);
     msg = msg + cstr;
     Serial.println(msg);
-  } while (cstr!="\n");*/
+  } while (cstr!="\n");
 
   return msg;
-}
+}*/
 
 
 // Send to android the GET data
