@@ -12,7 +12,7 @@
 int led = 13;
 
 SoftwareSerial ESP2866(10, 11); // Specify RX and TX pins on Arduino (TX, RX) as serial
-
+String GETstr = "GET /channels/111722/fields/1/last.txt?api_key=SE5ZR5HILIB7FF4T\r\n\r\n";
 // the setup routine runs once when you press reset:
 void setup() {                
   // initialize the digital pin as an output.
@@ -26,6 +26,7 @@ void setup() {
   //ESP2866.println("AT+RST");
   Serial.println("Connecting to network");
   connectWifi("cozy", "juanisdumb");
+  connectToHost("184.106.153.149");
 }
 
 // the loop routine runs over and over again forever:
@@ -38,6 +39,24 @@ void loop() {
   if( ESP2866.available() ){
     Serial.write( ESP2866.read() );
   }
+  //sendCommand("GET /channels/111722/fields/1/last.txt?api_key=SE5ZR5HILIB7FF4T\r\n\r\n");
+
+
+  
+  ESP2866.println("AT+CIPSEND=4,"+String(GETstr.length()));
+  Serial.println("AT+CIPSEND=4,"+String(GETstr.length()));
+  if(ESP2866.find(">")){
+    delay(7000);
+    ESP2866.print(GETstr);
+    Serial.print(GETstr);
+    while(ESP2866.available()){
+      Serial.write(ESP2866.read());
+    }
+  }else{
+    //sendCommand("AT+CIPCLOSE");
+  }
+  delay(16000);
+
   
   /*
   digitalWrite(led, HIGH);   // turn the LED on (HIGH is the voltage level)
@@ -87,10 +106,17 @@ void connectWifi(String Ssd, String Pass){
 
 void connectToHost(String host){
   Serial.println("Connecting to " + host);
+  //String response = sendCommand("AT+CIPSTART=4,\"TCP\",\""+host+"\",80");
 
+  ESP2866.println("AT+CIPSTART=4,\"TCP\",\""+host+"\",80");
+  delay(10000);
+
+  //sendCommand("GET /channels/111722/fields/1/last.txt?api_key=SE5ZR5HILIB7FF4T\r\n");
+  /*
+  if(Serial.find("Error")){
+    Serial.println("Could not connect");
+  }*/
   
-  String response = sendCommand("AT+CIPSTART=4,\"TCP\",\""+host+"\",80");
-
   //@TODO
   /*
   while( response ){
@@ -100,20 +126,23 @@ void connectToHost(String host){
   
 }
 
-void sendCommand(String cmd){
+String sendCommand(String cmd){
   ESP2866.println(cmd);
   delay(5000);
-  readReceive();
-  Serial.println("Done");
+  return readReceive();
 }
 
 String readReceive(){
   String response = "";
+  char charRead;
   while( ESP2866.available() ){
-    response = response + ESP2866.read();
+    //response = response + ESP2866.read();
     //Serial.write( ESP2866.read() );
+    charRead = ESP2866.read();
+    response.concat(charRead);
   }
-  Serial.write( response );
+  
+  Serial.println(response);
   return response;
 }
 
