@@ -33,13 +33,21 @@ an GET request is sent (per ThingSpeak API) to change the state of the light.
 On launch of the application, the current state of the light is obtained to inform the user of the status of the light.
 A '0' indicates that the light is off, while a '1' indicates that the light is on.
 
+
+
 <p align="center">
   <img src="https://github.com/elopezga/CSE-145-LightSwitch/blob/master/Log/screen2.gif"/>
-Clicking the button creates an HTTP GET request to change the state of the light. If its on, then it gets turned off, and visa-versa.
-  
 </p>
+Clicking the button creates an HTTP GET request to change the state of the light. If its on, then it gets turned off, and visa-versa.
+
+
+
 <p align="center">
   <img src="https://github.com/elopezga/CSE-145-LightSwitch/blob/master/Log/screen3.gif"/>
 </p>
 A limitation to the ThingSpeak server is that it cannot handle rapid state-change requests. The user has to wait
 some time until the ThingSpeak server is ready to accept requests. As such, the user is prompted with a "working" display.
+
+
+
+.
