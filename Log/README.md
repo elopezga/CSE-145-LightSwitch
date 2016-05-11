@@ -22,9 +22,17 @@
 
 ## Milestone 6
 #### Android Application
+The core functionality for the Android application is completed. The Android application communicates directly to the ThingSpeak
+server through the ThingSpeak channel and API. The form of communication takes place through HTTP requests. The
+application initiates a GET request to the server to grab the current state of the light every second. If the button is pressed, 
+an GET request is sent (per ThingSpeak API) to change the state of the light.
+
 <p align="center">
   <img src="https://github.com/elopezga/CSE-145-LightSwitch/blob/master/Log/screen1.gif"/>
 </p>
+On launch of the application, the current state of the light is obtained to inform the user of the status of the light.
+A '0' indicates that the light is off, while a '1' indicates that the light is on.
+
 <p align="center">
   <img src="https://github.com/elopezga/CSE-145-LightSwitch/blob/master/Log/screen2.gif"/>
 </p>
