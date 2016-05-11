@@ -22,8 +22,8 @@
 
 ## Milestone 6
 #### Android Application
-<p align="center>
-  ![Alt Text](https://github.com/elopezga/CSE-145-LightSwitch/blob/master/Log/screen1.gif)
+<p align="center">
+  <img src="https://github.com/elopezga/CSE-145-LightSwitch/blob/master/Log/screen2.gif"/>
 </p>
 ![Alt Text](https://github.com/elopezga/CSE-145-LightSwitch/blob/master/Log/screen2.gif)
 ![Alt Text](https://github.com/elopezga/CSE-145-LightSwitch/blob/master/Log/screen3.gif)
