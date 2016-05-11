@@ -1,11 +1,11 @@
 # Milestone Log
 
-## Milestone 1
+## Milestone 1 [Completed]
 #### Solder ESP8266 to adaptor for easy breadboard prototyping
+The ESP8266 WiFi chip has an unfortunate design that does not allow it to be easily used in prototype boards.
+Fortunately, an adaptor exists which makes it easy to prototype. The only requirement is to solder the header
+pins on the adaptor. After this, the ESP8266 is easily adaptable.
 
-* Soldered adaptor on ESP2866 for easy prototyping
-* Connected ESP2866 to my computer via USB.
-* 
 <a href="https://drive.google.com/open?id=0B8I6-MtRe_U0Q1JyajNyaHpvanM">Link to image of soldered adaptor for ESP8266</a>
 
 ## Milestone 2
