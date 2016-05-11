@@ -6,7 +6,7 @@
 * Soldered adaptor on ESP2866 for easy prototyping
 * Connected ESP2866 to my computer via USB.
 * 
-<img src="https://github.com/elopezga/CSE-145-LightSwitch/blob/master/Log/P_20160511_005205.jpg" data-rotate="90"/>
+<a href="https://drive.google.com/open?id=0B8I6-MtRe_U0Q1JyajNyaHpvanM">Link to image of soldered adaptor for ESP8266</a>
 
 ## Milestone 2
 #### Interface Arduino and ESP8266 communication
