@@ -8,21 +8,21 @@ pins on the adaptor. After this, the ESP8266 is easily adaptable.
 
 <a href="https://drive.google.com/open?id=0B8I6-MtRe_U0Q1JyajNyaHpvanM">Link to image of soldered adaptor for ESP8266</a>
 
-## Milestone 2
+## Milestone 2 [Completed]
 #### Interface Arduino and ESP8266 communication
 - Hardware
 - Software
 
-## Milestone 3
+## Milestone 3 [Completed]
 #### Connect ESP8266 WiFi chip to Internet network
 
 ## Milestone 4
 #### Light-switching mechanism on Arduino board
 
-## Milestone 5
+## Milestone 5 [Completed]
 #### TCP connection from ESP8266 to ThingSpeak
 
-## Milestone 6
+## Milestone 6 [Completed]
 #### Android Application
 The core functionality for the Android application is completed. The Android application communicates directly to the ThingSpeak
 server through the ThingSpeak channel and API. The form of communication takes place through HTTP requests. The
