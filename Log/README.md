@@ -10,9 +10,12 @@ pins on the adaptor. After this, the ESP8266 is easily adaptable.
 
 ## Milestone 2 [Completed]
 #### Interface Arduino and ESP8266 communication
-- Hardware
+#####Hardware
+I choose to use a prototype board to connect the ESP8226 and Arduino MC for quick and easy developing and debugging. An FTDI
+is connected to the Arduino via header pins. This allows me to upload my program to the Arduino and debug it by seeing the
+output on my computer.
 <a href="https://drive.google.com/open?id=0B8I6-MtRe_U0bUNJX0drU1Vkekk">Link to hardware wiring</a>
-- Software
+#####Software
 <p align="center">
   <img src="https://github.com/elopezga/CSE-145-LightSwitch/blob/master/Log/Milestone2.gif"/>
 </p>
