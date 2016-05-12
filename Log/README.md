@@ -11,7 +11,11 @@ pins on the adaptor. After this, the ESP8266 is easily adaptable.
 ## Milestone 2 [Completed]
 #### Interface Arduino and ESP8266 communication
 - Hardware
+<a href="https://drive.google.com/open?id=0B8I6-MtRe_U0bUNJX0drU1Vkekk">Link to hardware wiring</a>
 - Software
+<p align="center">
+  <img src="https://github.com/elopezga/CSE-145-LightSwitch/blob/master/Log/Milestone2.gif"/>
+</p>
 
 ## Milestone 3 [Completed]
 #### Connect ESP8266 WiFi chip to Internet network
