@@ -29,7 +29,9 @@ status of the light.
 #### Connect ESP8266 WiFi chip to Internet network
 Connecting to a home network is relatively simple once you can communicate with ESP8266 from the Arduino or computer.
 
-<b>AT+CWLAP</b>
+```
+AT+CWLAP
+```
 
 will list the access points available. You can connect to an access point by simply sending the command
 
