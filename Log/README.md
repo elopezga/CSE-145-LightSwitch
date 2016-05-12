@@ -35,11 +35,15 @@ AT+CWLAP
 
 will list the access points available. You can connect to an access point by simply sending the command
 
-<b>AT+CWJAP="SSID","PASSWORD"</b>
+```
+AT+CWJAP="SSID","PASSWORD"
+```
 
 To insure that the ESP8266 has connected to the home network successfully, we can run the command
 
-<b>AT+CIFSR</b>
+```
+AT+CIFSR
+```
 
 This will return the IP address.
 
@@ -55,16 +59,22 @@ This will return the IP address.
 In order to contact the ThingSpeak server and start sending HTTP request, the ESP8266 must first connect to it.
 Sending the command
 
-<b>AT+CIPSTART="TCP","api.thingspeak.com",80</b>
+```
+AT+CIPSTART="TCP","api.thingspeak.com",80
+```
 
 will connect the ESP8266 to the ThingSpeak HTTP server. Once connected, we can start sending HTTP requests by first, telling
 the ThingSpeak server how many bytes of request we want to send, and finally, the actualy request string. The following two
 commands describe how to tell the ESP8266 to do this.
 
-<b>AT+CIPSEND=[BYTES_TO_SEND]</b>
+```
+AT+CIPSEND=[BYTES_TO_SEND]
+```
 <br>
 <br>
-<b>GET /channel/[CHANNEL_ID]/fields/[FIELD_ID]/last.txt?api_key=[GET_KEY] HTTP/1.1\r\nHOST: api.thingspeak.com:80\r\nContent-Type: text/html; charset=utf-8\r\n\r\n\r\n</b>
+```
+GET /channel/[CHANNEL_ID]/fields/[FIELD_ID]/last.txt?api_key=[GET_KEY] HTTP/1.1\r\nHOST: api.thingspeak.com:80\r\nContent-Type: text/html; charset=utf-8\r\n\r\n\r\n
+```
 
 <p align="center">
   <img src="https://github.com/elopezga/CSE-145-LightSwitch/blob/master/Log/Milestone5.gif"/>
