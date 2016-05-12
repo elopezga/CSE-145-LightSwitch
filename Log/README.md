@@ -70,8 +70,6 @@ commands describe how to tell the ESP8266 to do this.
 ```
 AT+CIPSEND=[BYTES_TO_SEND]
 ```
-<br>
-<br>
 ```
 GET /channel/[CHANNEL_ID]/fields/[FIELD_ID]/last.txt?api_key=[GET_KEY] HTTP/1.1\r\nHOST: api.thingspeak.com:80\r\nContent-Type: text/html; charset=utf-8\r\n\r\n\r\n
 ```
