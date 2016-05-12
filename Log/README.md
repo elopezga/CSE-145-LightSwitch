@@ -76,7 +76,7 @@ application initiates a GET request to the server to grab the current state of t
 an GET request is sent (per ThingSpeak API) to change the state of the light.
 
 <p align="center">
-  <img src="https://github.com/elopezga/CSE-145-LightSwitch/blob/master/Log/screen1.gif" width="480" height="480"/>
+  <img src="https://github.com/elopezga/CSE-145-LightSwitch/blob/master/Log/screen1.gif" width="auto" height="480"/>
 </p>
 On launch of the application, the current state of the light is obtained to inform the user of the status of the light.
 A '0' indicates that the light is off, while a '1' indicates that the light is on.
