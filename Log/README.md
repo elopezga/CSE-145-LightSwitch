@@ -106,6 +106,15 @@ Clicking the button creates an HTTP GET request to change the state of the light
 A limitation to the ThingSpeak server is that it cannot handle rapid state-change requests. The user has to wait
 some time until the ThingSpeak server is ready to accept requests. As such, the user is prompted with a "working" display.
 
-
+## Final Sprint
+The final sprint for this project is to complete milestone 4. Particularly, grabbing the light status from the HTTP request
+response of the server, parsing it, and telling the Arduino to switch pin power from HIGH to LOW (or vise-versa) based on
+the parsed data. Since the current state of the application allows receiving the light's state, it is simply a matter of
+parsing this HTTP response and telling the Arduino how to respond to this data. One problem I have noticed is that
+the HTTP response is formatted differently sometimes, making it harder to parse and obtain the light state. I'm still
+figuring out how to get around this issue, but I think I'll have to account for each possible format output and parse
+the data accordingly. If time permits, which I am confident it will, I will begin focusing on cleaning up the Android
+application (UX) and perhaps add more features and functionality, since the core fonctionality of the project will be complete
+after milestone 4.
 
 .
