@@ -16,12 +16,24 @@ is connected to the Arduino via header pins. This allows me to upload my program
 output on my computer.
 <a href="https://drive.google.com/open?id=0B8I6-MtRe_U0bUNJX0drU1Vkekk">Link to hardware wiring</a>
 #####Software
+Since the Arduino is connected via USB, I am able to communicate with the ESP8266 directly. This means I can send AT commands
+and the ESP8266 will respond. This is useful for debugging. 
 <p align="center">
   <img src="https://github.com/elopezga/CSE-145-LightSwitch/blob/master/Log/Milestone2.gif"/>
 </p>
+The software loaded onto the Arduino sends automatically sends AT commands in a sequence that will connect the ESP8266 to
+the home network, connect to the ThingSpeak server, and send and receive HTTP requests every couple of seconds on the
+status of the light.
 
 ## Milestone 3 [Completed]
 #### Connect ESP8266 WiFi chip to Internet network
+Connecting to a home network is relatively simple once you can communicate with ESP8266 from the Arduino or computer.
+
+<b>AT+CWLAP</b>
+
+will list the access points available. You can connect to an access point by simply sending the command
+
+<b>AT+CWJAP="SSID","PASSWORD"</b>
 
 ## Milestone 4
 #### Light-switching mechanism on Arduino board
