@@ -60,7 +60,13 @@ the ThingSpeak server how many bytes of request we want to send, and finally, th
 commands describe how to tell the ESP8266 to do this.
 
 <b>AT+CIPSEND=[BYTES_TO_SEND]</b>
+<br>
+<br>
 <b>GET /channel/[CHANNEL_ID]/fields/[FIELD_ID]/last.txt?api_key=[GET_KEY] HTTP/1.1\r\nHOST: api.thingspeak.com:80\r\nContent-Type: text/html; charset=utf-8\r\n\r\n\r\n</b>
+
+<p align="center">
+  <img src="https://github.com/elopezga/CSE-145-LightSwitch/blob/master/Log/Milestone5.gif"/>
+</p>
 
 ## Milestone 6 [Completed]
 #### Android Application
