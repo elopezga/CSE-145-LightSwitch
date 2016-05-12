@@ -41,6 +41,10 @@ To insure that the ESP8266 has connected to the home network successfully, we ca
 
 This will return the IP address.
 
+<p align="center">
+  <img src="https://github.com/elopezga/CSE-145-LightSwitch/blob/master/Log/Milestone3.gif"/>
+</p>
+
 ## Milestone 4
 #### Light-switching mechanism on Arduino board
 
