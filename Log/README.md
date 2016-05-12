@@ -51,7 +51,7 @@ This will return the IP address.
   <img src="https://github.com/elopezga/CSE-145-LightSwitch/blob/master/Log/Milestone3.gif"/>
 </p>
 
-## Milestone 4
+## Milestone 4 [Not Complete]
 #### Light-switching mechanism on Arduino board
 
 ## Milestone 5 [Completed]
@@ -113,8 +113,8 @@ the parsed data. Since the current state of the application allows receiving the
 parsing this HTTP response and telling the Arduino how to respond to this data. One problem I have noticed is that
 the HTTP response is formatted differently sometimes, making it harder to parse and obtain the light state. I'm still
 figuring out how to get around this issue, but I think I'll have to account for each possible format output and parse
-the data accordingly. If time permits, which I am confident it will, I will begin focusing on cleaning up the Android
+the data accordingly (ETA week 8). If time permits, which I am confident it will, I will begin focusing on cleaning up the Android
 application (UX) and perhaps add more features and functionality, since the core fonctionality of the project will be complete
-after milestone 4.
+after milestone 4. At the same time, I will focus on creating the final presentation and demo.
 
 .
