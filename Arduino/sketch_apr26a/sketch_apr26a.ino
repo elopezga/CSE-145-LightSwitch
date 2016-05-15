@@ -33,7 +33,7 @@ void setup() {
 
   //Serial.println("Resetting ESP2866");
   //checkForResponse( "OK", sendCommandLN("AT+RST");
-  connectWifi("cozy","juanisdumb");
+  //connectWifi("cozy","juanisdumb");
 
   
 }
@@ -50,7 +50,7 @@ void loop() {
     Serial.write( ESP2866.read() );
   }
 
-  
+  /*  
   if( !sendCommand("AT+CIPSTART=4,\"TCP\",\"api.thingspeak.com\",80\r\n", "OK", "ERROR") ){
     Serial.println("Something went wrong!");
     //return;
@@ -79,6 +79,7 @@ void loop() {
     //return;
   }*/
   
+  /*
   delay(1000);
   
   
