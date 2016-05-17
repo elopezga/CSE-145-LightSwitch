@@ -8,7 +8,7 @@
  
 // Pin 13 has an LED connected on most Arduino boards.
 // give it a name:
-int led = 13;
+int led = 3;
 boolean DEBUG = true;
 
 SoftwareSerial ESP2866(10, 11); // Specify RX and TX pins on Arduino (TX, RX) as serial
@@ -50,7 +50,7 @@ void loop() {
     Serial.write( ESP2866.read() );
   }
 
-  
+  ESP2866.flush();
   if( !sendCommand("AT+CIPSTART=4,\"TCP\",\"api.thingspeak.com\",80\r\n", "OK", "ERROR") ){
     Serial.println("Something went wrong!");
     //return;
@@ -62,9 +62,39 @@ void loop() {
     //return;
   }
   //delay(5000);
+  ESP2866.flush();
   ESP2866.print(GETSTR);
-  readReceive();
-  readReceive();
+  ESP2866.flush();
+  /*
+  while( !checkForResponse("+IPD", readReceive()) ){
+    Serial.println(".");
+  }*/
+  String str;
+  /*
+  do{
+    delay(500);
+    str += readReceive();
+    str += readReceive();
+    Serial.flush();
+    Serial.println(".");
+    Serial.println(str);
+  }while( !checkForResponse("Dat", str) );
+  */
+  delay(500);
+  str += readReceive();
+  Serial.println(str);
+  
+  if( find_text("ON", str) != -1 ){
+    // ON found in response
+    digitalWrite(led, HIGH);
+  }else{
+    digitalWrite(led, LOW);
+  }
+
+  
+  ESP2866.flush();
+  //readReceive();
+  //readReceive();
 
   /*+IPD,4,5:0*/
   /*
@@ -254,7 +284,7 @@ String readReceive(){
     response.concat(charRead);
   }
   
-  Serial.println(response);
+  //Serial.println(response);
   return response;
 }
 
@@ -314,6 +344,9 @@ void waitForResponse(String response){
   }
 }
 
+/*
+ * Return true if target is within refstr. False otherwise.
+ */
 boolean checkForResponse(String target, String refstr){
   if( find_text(target, refstr) != -1 ){
     Serial.println("OK TO PROCEED");
