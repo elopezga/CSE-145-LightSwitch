@@ -10,10 +10,12 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class ControlActivity extends AppCompatActivity {
     private static String light1Status;
+    private static ImageButton toggleButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +23,7 @@ public class ControlActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        /*
        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -28,11 +31,12 @@ public class ControlActivity extends AppCompatActivity {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
 
-        final Button toggleButton = (Button) findViewById(R.id.button_update);
-        final TextView lightstatustext = (TextView) findViewById(R.id.textView_light);
-        findViewById(R.id.progressBar).setVisibility(View.GONE);
+        toggleButton = (ImageButton) findViewById(R.id.button_update);
+        //final TextView lightstatustext = (TextView) findViewById(R.id.textView_light);
+        hideProgressBar();
+
 
         toggleButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,40 +44,12 @@ public class ControlActivity extends AppCompatActivity {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        ThingSpeakComm tpcom = new ThingSpeakComm();
-                        String response;
-                        //Log.d("LightSwitch", "Status: " + light1Status);
-                        //Log.d("LightSwitch", Boolean.toString(light1Status.equals("0")));
-                        if( light1Status.equals("0") ){
-                            do {
-                                response = tpcom.setLightStatus("1", "1").replace("\n", "");
-
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
-                                    }
-                                });
-
-                            } while( response.equals("0"));
-                        }else {
-                            do {
-                                response = tpcom.setLightStatus("1", "0").replace("\n", "");
-
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
-                                    }
-                                });
-
-                            } while( response.equals("0"));
-                        }
-
+                        sendLightSwitchRequest();
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.progressBar).setVisibility(View.GONE);
+                                hideProgressBar();
+                                toggleButton.setClickable(true);
                             }
                         });
                         //Log.d("LightSwitch", Boolean.toString(response.equals("0")));
@@ -96,7 +72,12 @@ public class ControlActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                lightstatustext.setText("Light status: " + light1Status);
+                                //lightstatustext.setText("Light status: " + light1Status);
+                                if( Integer.parseInt(light1Status) == 1 ){
+                                    toggleButton.setImageResource(R.drawable.light_on);
+                                }else{
+                                    toggleButton.setImageResource(R.drawable.light_off);
+                                }
                             }
                         });
                     }
@@ -134,4 +115,52 @@ public class ControlActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void hideProgressBar() {
+        findViewById(R.id.progressBar).setVisibility(View.GONE);
+    }
+
+    public void showProgressBar(){
+        findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
+    }
+
+    /*
+     * Sends a request to thingspeak http server to toggle the status of
+     * the light. This is a blocking method that waits until the status
+     * of the light has changed.
+     */
+    public void sendLightSwitchRequest(){
+        ThingSpeakComm tpcom = new ThingSpeakComm();
+        String response;
+        //Log.d("LightSwitch", "Status: " + light1Status);
+        //Log.d("LightSwitch", Boolean.toString(light1Status.equals("0")));
+        if( light1Status.equals("0") ){
+            do {
+                response = tpcom.setLightStatus("1", "1").replace("\n", "");
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        showProgressBar();
+                        toggleButton.setClickable(false);
+                    }
+                });
+
+            } while( response.equals("0"));
+        }else {
+            do {
+                response = tpcom.setLightStatus("1", "0").replace("\n", "");
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        showProgressBar();
+                        toggleButton.setClickable(false);
+                    }
+                });
+
+            } while( response.equals("0"));
+        }
+    }
+
 }
