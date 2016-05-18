@@ -73,9 +73,15 @@ public class ControlActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 //lightstatustext.setText("Light status: " + light1Status);
+                                /*
                                 if( Integer.parseInt(light1Status) == 1 ){
                                     toggleButton.setImageResource(R.drawable.light_on);
                                 }else{
+                                    toggleButton.setImageResource(R.drawable.light_off);
+                                }*/
+                                if( light1Status.equals("ON") ){
+                                    toggleButton.setImageResource(R.drawable.light_on);
+                                }else if( light1Status.equals("OFF") ){
                                     toggleButton.setImageResource(R.drawable.light_off);
                                 }
                             }
@@ -117,10 +123,12 @@ public class ControlActivity extends AppCompatActivity {
     }
 
     public void hideProgressBar() {
+        findViewById(R.id.progressBar).bringToFront();
         findViewById(R.id.progressBar).setVisibility(View.GONE);
     }
 
     public void showProgressBar(){
+        findViewById(R.id.progressBar).bringToFront();
         findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
     }
 
@@ -134,9 +142,10 @@ public class ControlActivity extends AppCompatActivity {
         String response;
         //Log.d("LightSwitch", "Status: " + light1Status);
         //Log.d("LightSwitch", Boolean.toString(light1Status.equals("0")));
-        if( light1Status.equals("0") ){
+        if( light1Status.equals("OFF") ){
             do {
-                response = tpcom.setLightStatus("1", "1").replace("\n", "");
+                response = tpcom.setLightStatus("1", "ON").replace("\n", "");
+                //Log.d("LightSwitch", "Response: " + response);
 
                 runOnUiThread(new Runnable() {
                     @Override
@@ -145,11 +154,12 @@ public class ControlActivity extends AppCompatActivity {
                         toggleButton.setClickable(false);
                     }
                 });
-
-            } while( response.equals("0"));
-        }else {
+            // Thingspeak returns 0 when it could not process the request
+            } while( light1Status.equals("OFF"));
+        }else if ( light1Status.equals("ON") ) {
             do {
-                response = tpcom.setLightStatus("1", "0").replace("\n", "");
+                response = tpcom.setLightStatus("1", "OFF").replace("\n", "");
+                //Log.d("LightSwitch", "Response: " + response);
 
                 runOnUiThread(new Runnable() {
                     @Override
@@ -158,8 +168,8 @@ public class ControlActivity extends AppCompatActivity {
                         toggleButton.setClickable(false);
                     }
                 });
-
-            } while( response.equals("0"));
+            // Thingspeak returns 0 when it could not process the request
+            } while( light1Status.equals("ON") );
         }
     }
 
